@@ -1,2 +1,0 @@
-# reactcomponent
-React patterns
