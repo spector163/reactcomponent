@@ -96,8 +96,8 @@ const CombineReducor = (...reducors: ReducorType[]) => {
 const MyAccordian = ({ items }: { items: ItemArray }) => {
 	const [OpenIndexs, toggleIndex] = useAccordian({
 		reducor: CombineReducor(
-			// SingleReducor as ReducorType,
-			// PreventlastClose as ReducorType,
+			SingleReducor as ReducorType,
+			PreventlastClose as ReducorType,
 			Reducor
 		) as ReducorType,
 	});
