@@ -96,8 +96,8 @@ const CombineReducor = (...reducors: ReducorType[]) => {
 const MyAccordian = ({ items }: { items: ItemArray }) => {
 	const [OpenIndexs, toggleIndex] = useAccordian({
 		reducor: CombineReducor(
-			SingleReducor as ReducorType,
-			PreventlastClose as ReducorType,
+			// SingleReducor as ReducorType,
+			// PreventlastClose as ReducorType,
 			Reducor
 		) as ReducorType,
 	});
@@ -107,7 +107,13 @@ const MyAccordian = ({ items }: { items: ItemArray }) => {
 				<AccordianItem key={index}>
 					<AccordianButton onClick={() => toggleIndex(index)}>
 						{item.label}
-						<span>{OpenIndexs.includes(index) ? "👇" : "👈"}</span>
+						<span
+							className={`transition-transform duration-300 ease-out ${
+								OpenIndexs.includes(index) && "rotate-[270deg]"
+							}`}
+						>
+							👈
+						</span>
 					</AccordianButton>
 					<AccordianContent isOpen={OpenIndexs.includes(index)}>
 						{item.content}
