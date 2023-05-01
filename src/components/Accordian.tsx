@@ -1,4 +1,5 @@
-import { ReactNode, useReducer } from "react";
+import { ReactNode, useReducer, useRef } from "react";
+import { CSSTransition } from "react-transition-group";
 
 const Accordian = () => {
 	return (
@@ -144,7 +145,21 @@ const AccordianContent = ({
 	isOpen: boolean;
 	children: ReactNode;
 }) => {
-	return isOpen ? (
-		<div className='bg-[#eee]/80 p-2 text-black'>{children}</div>
-	) : null;
+	const nodeRef = useRef(null);
+
+	return (
+		<CSSTransition
+			in={isOpen}
+			unmountOnExit
+			timeout={{ appear: 0, exit: 200 }}
+			ref={nodeRef}
+			classNames='my-node'
+		>
+			<div ref={nodeRef} className='bg-[#eee]/80 grid text-black'>
+				<p className={`overflow-hidden px-2 ${isOpen && "py-2"}`}>
+					{children}
+				</p>
+			</div>
+		</CSSTransition>
+	);
 };
