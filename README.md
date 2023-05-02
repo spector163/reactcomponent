@@ -1,2 +1,2 @@
 # reactcomponent
-React patterns
+1. React patterns
