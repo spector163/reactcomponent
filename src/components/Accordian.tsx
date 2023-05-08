@@ -1,11 +1,13 @@
 import { ReactNode, useReducer, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
+import useIsMobile from "../utils/useIsMobile";
 
 const Accordian = () => {
+	const [isMobile] = useIsMobile(true);
 	return (
-		<div className='w-[min(95%,500px)]'>
+		<div className='w-[min(95%,500px)] mx-auto'>
 			<h1 className='text-center font-bold text-2xl underline'>
-				Accordian
+				Accordian {isMobile ? "mobile" : "desktop"}
 			</h1>
 			<MyAccordian items={Options} />
 		</div>
