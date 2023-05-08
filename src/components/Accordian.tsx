@@ -5,7 +5,7 @@ import useIsMobile from "../utils/useIsMobile";
 const Accordian = () => {
 	const [isMobile] = useIsMobile(true);
 	return (
-		<div className='w-[min(95%,500px)] mx-auto'>
+		<div className=''>
 			<h1 className='text-center font-bold text-2xl underline'>
 				Accordian {isMobile ? "mobile" : "desktop"}
 			</h1>
@@ -104,7 +104,7 @@ const MyAccordian = ({ items }: { items: ItemArray }) => {
 		) as ReducorType,
 	});
 	return (
-		<div className='w-[min(90%,500px)]'>
+		<div className='w-[min(90%,500px)] mx-auto'>
 			{items.map((item, index) => (
 				<AccordianItem key={index}>
 					<AccordianButton onClick={() => toggleIndex(index)}>
