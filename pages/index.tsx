@@ -16,12 +16,6 @@ const Home = () => {
 
 export default Home;
 
-type Data = {
-	name: string;
-	pet: string;
-	age: string;
-};
-
 const GenerateAndDisplayData = () => {
 	const { data } = useSearch("nit");
 	return (
