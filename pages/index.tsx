@@ -10,6 +10,7 @@ const Home = () => {
 			<Accordian></Accordian>
 			<Gallery />
 			<GenerateAndDisplayData />
+			<div className='animation'></div>
 		</>
 	);
 };

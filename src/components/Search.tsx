@@ -4,6 +4,9 @@ import {
 	SyntheticEvent,
 	forwardRef,
 	useCallback,
+
+	useRef,
+
 	useState,
 } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -12,14 +15,22 @@ import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import useIsMobile from "@utils/useIsMobile";
 
+import { CSSTransition } from "react-transition-group";
+
 export const Search = () => {
 	const [show, setShow] = useState(false);
+	console.log("show", show);
+
+
+export const Search = () => {
+	const [show, setShow] = useState(false);
+
 	const [isMobile] = useIsMobile(true);
 	const [searchString, setSearchString] = useState("");
 	const { data, isLoading: loading } = useSearch(searchString);
 
 	const handleShow = useCallback(() => {
-		setShow(!show);
+		setShow((v) => !v);
 	}, []);
 	const handleChange = useCallback((e: FormEvent<HTMLInputElement>) => {
 		setSearchString(e.currentTarget.value);
@@ -101,38 +112,47 @@ interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
-	({ className, onSubmit, onClear, value, isVisible, ...rest }, ref) => {
+	({ onSubmit, onClear, value, isVisible, ...rest }, ref) => {
+		const nodref = useRef(null);
+
 		return (
-			<>
-				{isVisible ? (
-					<form
-						className='bg-white overflow-hidden  absolute w-[700px] inset-0 left-auto right-full h-full border-r-0 border'
-						noValidate
-						role='search'
-						onSubmit={onSubmit}
-					>
-						<input
-							id='search'
-							className='text-heading outline-none indent-2 w-full h-full placeholder-gray-400 text-sm lg:text-base'
-							// className='absolute inset-0 indent-2 left-auto right-full w-[700px] h-full border-r-0 border'
-							placeholder='Search here...'
-							aria-label='Search'
-							autoComplete='off'
-							ref={ref}
-							value={value}
-							{...rest}
-						/>
-						{value && (
-							<button
-								className='absolute inset-0.5 left-auto px-2 bg-[#f4f4f4]  font-bold text-md'
-								onClick={onClear}
-							>
-								X
-							</button>
-						)}
-					</form>
-				) : null}
-			</>
+			<CSSTransition
+				in={isVisible}
+				nodeRef={nodref}
+				mountOnEnter
+				unmountOnExit
+				timeout={{ enter: 0, exit: 500 }}
+				classNames='my-search'
+			>
+				<form
+					className='bg-white overflow-hidden  absolute w-[700px] inset-0 left-auto right-full h-full border-r-0 border'
+					noValidate
+					role='search'
+					ref={nodref}
+					onSubmit={onSubmit}
+				>
+					<input
+						id='search'
+						className='text-heading outline-none indent-2 w-full h-full placeholder-gray-400 text-sm lg:text-base'
+						// className='absolute inset-0 indent-2 left-auto right-full w-[700px] h-full border-r-0 border'
+						placeholder='Search here...'
+						aria-label='Search'
+						autoComplete='off'
+						ref={ref}
+						value={value}
+						{...rest}
+					/>
+					{value && (
+						<button
+							className='absolute inset-0.5 left-auto px-2 bg-[#f4f4f4]  font-bold text-md'
+							onClick={onClear}
+						>
+							X
+						</button>
+					)}
+				</form>
+			</CSSTransition>
+
 		);
 	}
 );
