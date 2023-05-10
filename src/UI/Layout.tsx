@@ -21,6 +21,7 @@ const NavList: NavItem[] = [
 	{ title: "First" },
 	{ title: "Second", children: ["firstchild", "secondChild", "thirdChild"] },
 	{ title: "Third" },
+
 	{ title: "Fourth" },
 	{ title: "Fifth", children: ["firstchild", "secondChild", "thirdChild"] },
 	{ title: "Sixth" },
@@ -43,7 +44,7 @@ const Logo = () => (
 const NavMenu = () => {
 	return (
 		<nav>
-			<ul className='flex items-center gap-4 uppercase'>
+			<ul className='flex items-center gap-2 uppercase'>
 				{NavList.map((item, index) => (
 					<NavItem item={item} key={index.toString()} />
 				))}

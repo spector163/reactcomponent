@@ -1,14 +1,18 @@
+
 import { faker } from "@faker-js/faker";
 import Accordian from "../src/components/Accordian";
 import Gallery from "../src/components/Gallery";
 import { useState } from "react";
+
 
 const Home = () => {
 	return (
 		<>
 			<Accordian></Accordian>
 			<Gallery />
+
 			<GenerateAndDisplayData />
+
 		</>
 	);
 };
