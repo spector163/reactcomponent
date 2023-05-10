@@ -17,12 +17,12 @@ const Options = [
 	{
 		label: "First",
 		content:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem laboriosam obcaecati molestiae reprehenminima pariatur reiciendis doloremque neque nostrum. Similique, quidem vero!",
+			"Lorem ipsum dolor sum voluptatem quia maiores, quisquam a soluta tempore dolorum expedita minima pariatur reiciendis doloremque neque nostrum. Similique, quidem vero!",
 	},
 	{
 		label: "Second",
 		content:
-			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem laboriosam obcaecati molestiae reprehenderit minus perferendis, doloribus repudiandae vitae nobis cum ipsa possimus sapiente incidunt eveniet mollitiariatur reiciendis doloremque neque nostrum. Similique, quidem vero!",
+			"Lorem ipsum dolor sum voluptatem quia maiores, quisquam a soluta tempore dolorum expedita minima pariatur reiciendis doloremque neque nostrum. Similique, quidem vero!",
 	},
 	{
 		label: "Third",
@@ -164,9 +164,7 @@ const AccordianContent = ({
 			classNames='my-node'
 		>
 			<div ref={nodeRef} className='bg-[#eee]/80 grid text-black'>
-				<p className={`overflow-hidden px-2 ${isOpen && "py-2"}`}>
-					{children}
-				</p>
+				<p className={`overflow-hidden px-2  py-2`}>{children}</p>
 			</div>
 		</CSSTransition>
 	);
