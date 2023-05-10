@@ -10,17 +10,12 @@ const Home = () => {
 			<Accordian></Accordian>
 			<Gallery />
 			<GenerateAndDisplayData />
+			<div className='animation'></div>
 		</>
 	);
 };
 
 export default Home;
-
-type Data = {
-	name: string;
-	pet: string;
-	age: string;
-};
 
 const GenerateAndDisplayData = () => {
 	const { data } = useSearch("nit");
