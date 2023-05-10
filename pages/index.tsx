@@ -1,8 +1,13 @@
-import React from "react";
-import App from "../src/App";
+import Accordian from "../src/components/Accordian";
+import Gallery from "../src/components/Gallery";
 
 const Home = () => {
-	return <App />;
+	return (
+		<>
+			<Accordian></Accordian>
+			<Gallery />
+		</>
+	);
 };
 
 export default Home;
