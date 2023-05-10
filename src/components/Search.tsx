@@ -4,7 +4,9 @@ import {
 	SyntheticEvent,
 	forwardRef,
 	useCallback,
+
 	useRef,
+
 	useState,
 } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -12,11 +14,17 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import useIsMobile from "@utils/useIsMobile";
+
 import { CSSTransition } from "react-transition-group";
 
 export const Search = () => {
 	const [show, setShow] = useState(false);
 	console.log("show", show);
+
+
+export const Search = () => {
+	const [show, setShow] = useState(false);
+
 	const [isMobile] = useIsMobile(true);
 	const [searchString, setSearchString] = useState("");
 	const { data, isLoading: loading } = useSearch(searchString);
@@ -144,6 +152,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
 					)}
 				</form>
 			</CSSTransition>
+
 		);
 	}
 );
