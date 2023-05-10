@@ -6,7 +6,14 @@ export default {
 		"./pages/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			keyframes: {
+				wiggle: {
+					from: { backgroundPosition: "0 0" },
+					to: { backgroundPosition: "-200% 0" },
+				},
+			},
+		},
 	},
 	plugins: [],
 };
