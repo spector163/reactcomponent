@@ -1,16 +1,15 @@
 import { Search } from "@components/Search";
-import React, { ReactNode, useState } from "react";
-import { BiSearch } from "react-icons/bi";
+import React, { ReactNode } from "react";
 
 const Layout = ({ children }: { children: ReactNode }) => {
 	return (
-		<div>
+		<>
 			<Header />
-			<main className='grid place-items-center mt-3 gap-2 '>
+			<main className='mt-3 gap-2 px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
 				{children}
 			</main>
 			<Footer />
-		</div>
+		</>
 	);
 };
 
@@ -33,6 +32,7 @@ const NavList: NavItem[] = [
 const Header = () => {
 	return (
 		<header className='h-24 flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
+			<HamBurgarMenu />
 			<Logo />
 			<NavMenu />
 			<Search />
@@ -40,14 +40,24 @@ const Header = () => {
 	);
 };
 
+const HamBurgarMenu = () => {
+	return (
+		<div className='flex flex-col w-8 gap-1 mr-3 md:hidden'>
+			<span className='bg-black h-1'></span>
+			<span className='bg-black h-1'></span>
+			<span className='bg-black h-1'></span>
+		</div>
+	);
+};
+
 const Logo = () => (
 	<div>
-		<span>Logo</span>
+		<span className='font-extrabold text-3xl'>Logo</span>
 	</div>
 );
 const NavMenu = () => {
 	return (
-		<nav className='ml-auto'>
+		<nav className='ml-auto md:block hidden'>
 			<ul className='flex items-center gap-4 uppercase '>
 				{NavList.map((item, index) => (
 					<NavItem item={item} key={index.toString()} />

@@ -10,9 +10,11 @@ import { BiSearch } from "react-icons/bi";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
+import useIsMobile from "@utils/useIsMobile";
 
 export const Search = () => {
 	const [show, setShow] = useState(false);
+	const [isMobile] = useIsMobile(true);
 	const [searchString, setSearchString] = useState("");
 	const { data, isLoading: loading } = useSearch(searchString);
 
@@ -30,31 +32,35 @@ export const Search = () => {
 		[]
 	);
 	return (
-		<div
-			className={`bg-slate-500 hover:bg-red-700 rounded-[3px] ${
-				show && "rounded-l-none"
-			} transition-all duration-300 group relative`}
-		>
-			<SearchIcon cb={handleShow} />
-			<SearchBox
-				isVisible={show}
-				name='search'
-				onChange={handleChange}
-				onClear={clear}
-				onSubmit={handleSubmit}
-				value={searchString}
-				ref={(input) => input && input.focus()}
-			/>
-			{searchString && (
-				<div className='absolute z-10 top-full right-full w-[700px] border border-t-0 group bg-white p-1'>
-					{loading ? (
-						<Skeleton count={10} height={40} />
-					) : (
-						<DisplayResult list={data?.data} />
+		<>
+			{isMobile ? null : (
+				<div
+					className={`bg-slate-500 hover:bg-red-700 rounded-[3px] ${
+						show && "rounded-l-none"
+					} transition-all duration-300 group relative`}
+				>
+					<SearchIcon cb={handleShow} />
+					<SearchBox
+						isVisible={show}
+						name='search'
+						onChange={handleChange}
+						onClear={clear}
+						onSubmit={handleSubmit}
+						value={searchString}
+						ref={(input) => input && input.focus()}
+					/>
+					{searchString && (
+						<div className='absolute z-10 top-full right-full w-[700px] border border-t-0 group bg-white p-1'>
+							{loading ? (
+								<Skeleton count={10} height={40} />
+							) : (
+								<DisplayResult list={data?.data} />
+							)}
+						</div>
 					)}
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
@@ -147,7 +153,7 @@ const fetchResponse = async (input: string) => {
 	);
 };
 
-const useSearch = (input: string) => {
+export const useSearch = (input: string) => {
 	return useQuery(["search", input], () => fetchResponse(input), {
 		enabled: !!input,
 		keepPreviousData: false,
