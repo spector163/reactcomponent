@@ -1,4 +1,6 @@
-import React, { ReactNode } from "react";
+import { Search } from "@components/Search";
+import React, { ReactNode, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 
 const Layout = ({ children }: { children: ReactNode }) => {
 	return (
@@ -13,6 +15,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 };
 
 export default Layout;
+
 type NavItem = {
 	title: string;
 	children?: NavItem["title"][];
@@ -29,12 +32,14 @@ const NavList: NavItem[] = [
 
 const Header = () => {
 	return (
-		<header className='h-24 flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)] justify-between'>
+		<header className='h-24 flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
 			<Logo />
 			<NavMenu />
+			<Search />
 		</header>
 	);
 };
+
 const Logo = () => (
 	<div>
 		<span>Logo</span>
@@ -42,8 +47,8 @@ const Logo = () => (
 );
 const NavMenu = () => {
 	return (
-		<nav>
-			<ul className='flex items-center gap-4 uppercase'>
+		<nav className='ml-auto'>
+			<ul className='flex items-center gap-4 uppercase '>
 				{NavList.map((item, index) => (
 					<NavItem item={item} key={index.toString()} />
 				))}

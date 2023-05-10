@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import Accordian from "../src/components/Accordian";
-import Gallery from "../src/components/Gallery";
 import { useState } from "react";
+import Gallery from "@components/Gallery";
+import Accordian from "@components/Accordian";
 
 const Home = () => {
 	return (
@@ -14,6 +14,7 @@ const Home = () => {
 };
 
 export default Home;
+
 type Data = {
 	name: string;
 	pet: string;
