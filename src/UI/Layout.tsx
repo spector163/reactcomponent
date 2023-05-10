@@ -21,6 +21,11 @@ const NavList: NavItem[] = [
 	{ title: "First" },
 	{ title: "Second", children: ["firstchild", "secondChild", "thirdChild"] },
 	{ title: "Third" },
+
+	{ title: "Fourth" },
+	{ title: "Fifth", children: ["firstchild", "secondChild", "thirdChild"] },
+	{ title: "Sixth" },
+	{ title: "Seventh" },
 ];
 
 const Header = () => {
