@@ -11,7 +11,6 @@ const Home = () => {
 			<Accordian></Accordian>
 			<Gallery />
 			<GenerateAndDisplayData />
-			{/* <div className='animation'></div> */}
 			<ContentLoader count={5} containerClassName='mb-4' />
 			<div className='background'></div>
 		</>
@@ -24,10 +23,7 @@ const GenerateAndDisplayData = () => {
 	const { data } = useSearch("nit");
 	return (
 		<div className='flex flex-col gap-2 '>
-			<button
-				className='text-center font-bold underline active:scale-95 transition-all duration-300 ease-in-out border-[#333] capitalize'
-				// onClick={handleClick}
-			>
+			<button className='text-center font-bold underline active:scale-95 transition-all duration-300 ease-in-out border-[#333] capitalize'>
 				Generate me Dady!
 			</button>
 			{data && (
