@@ -4,9 +4,7 @@ import {
 	SyntheticEvent,
 	forwardRef,
 	useCallback,
-
 	useRef,
-
 	useState,
 } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -16,11 +14,6 @@ import Skeleton from "react-loading-skeleton";
 import useIsMobile from "@utils/useIsMobile";
 
 import { CSSTransition } from "react-transition-group";
-
-export const Search = () => {
-	const [show, setShow] = useState(false);
-	console.log("show", show);
-
 
 export const Search = () => {
 	const [show, setShow] = useState(false);
@@ -152,7 +145,6 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
 					)}
 				</form>
 			</CSSTransition>
-
 		);
 	}
 );
