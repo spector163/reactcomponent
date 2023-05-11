@@ -27,13 +27,11 @@ export const ContentLoader: React.FC<Props> = (props) => {
 					key={j.toString()}
 					className={classNames(
 						elemClassName,
-						`flex flex-col gap-2 h-12  bg-gradient-to-r from-indigo-500 from-10% via-emerald-500 via-30% to-indigo-500 to-90% bg-[length:200%]  ${
+						`flex flex-col gap-2 h-12  bg-gradient-to-r from-indigo-500 from-10% via-fuchsia-300 via-50% to-indigo-500 to-80% bg-[length:200%]  ${
 							animate && "animate-[wiggle_1.5s_linear_infinite]"
 						}`
 					)}
-				>
-					{j}
-				</span>
+				></span>
 			))}
 		</div>
 	);

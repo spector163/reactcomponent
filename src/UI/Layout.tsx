@@ -2,8 +2,6 @@ import { Search } from "@components/Search";
 import useScroll from "@utils/useScroll";
 import React, { ReactNode, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import React, { ReactNode } from "react";
-
 
 const Layout = ({ children }: { children: ReactNode }) => {
 	const [show, setShow] = useState(false);
