@@ -1,6 +1,7 @@
 import Gallery from "@components/Gallery";
 import Accordian from "@components/Accordian";
 import { useSearch } from "@components/Search";
+import { ContentLoader } from "@UI/Loaders";
 
 let render = 0;
 const Home = () => {
@@ -10,7 +11,9 @@ const Home = () => {
 			<Accordian></Accordian>
 			<Gallery />
 			<GenerateAndDisplayData />
-			<div className='animation'></div>
+			{/* <div className='animation'></div> */}
+			<ContentLoader count={5} containerClassName='mb-4' />
+			<div className='background'></div>
 		</>
 	);
 };

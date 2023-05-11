@@ -1,11 +1,25 @@
 import { Search } from "@components/Search";
+import useScroll from "@utils/useScroll";
+import React, { ReactNode, useState } from "react";
+import { RxCross2 } from "react-icons/rx";
 import React, { ReactNode } from "react";
 
+
 const Layout = ({ children }: { children: ReactNode }) => {
+	const [show, setShow] = useState(false);
+
 	return (
 		<>
-			<Header />
-			<main className='mt-3 gap-2 px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
+			<Header>
+				<HamBurgarMenuButton
+					toggleMenu={() => setShow((prev) => !prev)}
+				/>
+				<Logo />
+				<NavMenu />
+				{show && <MobileMenu closeMenu={() => setShow(false)} />}
+				<Search />
+			</Header>
+			<main className='md:mt-28 gap-2 px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
 				{children}
 			</main>
 			<Footer />
@@ -29,23 +43,52 @@ const NavList: NavItem[] = [
 	{ title: "Seventh" },
 ];
 
-const Header = () => {
+const Header = ({ children }: { children: ReactNode }) => {
+	const scrolled = useScroll();
 	return (
-		<header className='h-24 flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
-			<HamBurgarMenu />
-			<Logo />
-			<NavMenu />
-			<Search />
+		<header
+			className={`${
+				scrolled ? "md:h-16" : "md:h-24"
+			} h-[55px] flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)] border-b md:fixed md:top-0 w-full bg-white md:z-10 transition-[height] duration-300 ease-in`}
+		>
+			{children}
 		</header>
 	);
 };
 
-const HamBurgarMenu = () => {
+const HamBurgarMenuButton = ({ toggleMenu }: { toggleMenu: () => void }) => {
 	return (
-		<div className='flex flex-col w-8 gap-1 mr-3 md:hidden'>
+		<div
+			className='flex flex-col w-8 gap-1 mr-3 md:hidden cursor-pointer'
+			onClick={toggleMenu}
+		>
 			<span className='bg-black h-1'></span>
 			<span className='bg-black h-1'></span>
 			<span className='bg-black h-1'></span>
+		</div>
+	);
+};
+
+const MobileMenu = ({ closeMenu }: { closeMenu: () => void }) => {
+	return (
+		<div className='grid grid-cols-[1fr,2fr] fixed top-0 inset-0'>
+			<div className='bg-white'>
+				<ul className='flex flex-col text-center gap-2 p-3 h-full'>
+					<li>Lorem.</li>
+					<li>Corporis</li>
+					<li className='my-auto'>Illo</li>
+					<li>Illo</li>
+					<li className='mt-atuo'>Illo</li>
+				</ul>
+			</div>
+			<div className='p-2 bg-[#000]/20 backdrop-blur-sm'>
+				<button
+					onClick={closeMenu}
+					className='bg-green-600  block p-2 ml-auto text-white font-bold active:scale-95 transition-all duration-200'
+				>
+					<RxCross2 strokeWidth={"2"} />
+				</button>
+			</div>
 		</div>
 	);
 };

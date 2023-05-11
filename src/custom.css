@@ -55,3 +55,32 @@
 		background-position: -200% 0;
 	}
 }
+
+.background {
+	width: 500px;
+	aspect-ratio: 4/3;
+	margin-bottom: 2rem;
+	border: 1px solid black;
+	margin-inline: auto;
+	background-image: url("http://localhost/collegebatch-next/static/clg-gallery/a-b-shetty-memorial-institute-of-dental-sciences-absmids-mangalore-3153.jpg"),
+		linear-gradient(to right, #ededed 30%, #ff6500 70%, #ededed);
+	background-size: 50% 50%, 100%;
+	background-blend-mode: color-burn;
+	background-position: 50%;
+	background-repeat: repeat;
+	/* background-image: linear-gradient(
+		to right,
+		#ededed 30%,
+		#ff6500 70%,
+		#ededed
+	); */
+	/* background-size: 200%;
+	background-position: 0 0; */
+	/* animation: custom linear 5s forwards infinite; */
+}
+@keyframes custom {
+	to {
+		background-position: -200% 0;
+	}
+}
+
