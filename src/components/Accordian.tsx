@@ -104,7 +104,7 @@ const MyAccordian = ({ items }: { items: ItemArray }) => {
 		) as ReducorType,
 	});
 	return (
-		<div className='w-[min(90%,500px)] mx-auto'>
+		<div className='w-[min(100%,500px)] mx-auto'>
 			{items.map((item, index) => (
 				<AccordianItem key={index}>
 					<AccordianButton onClick={() => toggleIndex(index)}>
