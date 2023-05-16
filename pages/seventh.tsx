@@ -7,9 +7,8 @@ import {
 	useState,
 	useSyncExternalStore,
 } from "react";
-
+const { useStore, Provider } = fastTodoContext<{ remarks: string }>([]);
 const Yash = () => {
-	const { Provider, useStore } = fastTodoContext([]);
 	return (
 		<Provider>
 			<div className='grid min-h-screen place-items-center'>
@@ -23,7 +22,6 @@ const Yash = () => {
 export default Yash;
 
 const TodoForm = () => {
-	const { useStore } = fastTodoContext<{ remarks: string }>([]);
 	const [_, set] = useStore();
 	const [item, setItem] = useState("");
 	const [remark, setRemark] = useState("");
@@ -62,8 +60,8 @@ const TodoForm = () => {
 };
 
 const TodoListComponent = () => {
-	const { useStore } = fastTodoContext<{ remarks: string }>([]);
 	const [list, _] = useStore();
+	console.log(list);
 	return (
 		<>
 			{list.map((item, index) => (
