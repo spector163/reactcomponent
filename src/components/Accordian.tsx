@@ -5,7 +5,7 @@ import useIsMobile from "../utils/useIsMobile";
 const Accordian = () => {
 	const [isMobile] = useIsMobile(true);
 	return (
-		<div className=''>
+		<div className='px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
 			<h1 className='text-center font-bold text-2xl underline'>
 				Accordian {isMobile ? "mobile" : "desktop"}
 			</h1>
