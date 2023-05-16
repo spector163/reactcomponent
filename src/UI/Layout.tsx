@@ -1,5 +1,6 @@
 import { Search } from "@components/Search";
 import useScroll from "@utils/useScroll";
+import Link from "next/link";
 import React, { ReactNode, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
@@ -17,9 +18,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 				{show && <MobileMenu closeMenu={() => setShow(false)} />}
 				<Search />
 			</Header>
-			<main className='md:mt-28 gap-2 px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)]'>
-				{children}
-			</main>
+			<main className='gap-2 '>{children}</main>
 			<Footer />
 		</>
 	);
@@ -29,16 +28,25 @@ export default Layout;
 
 type NavItem = {
 	title: string;
+	url?: string;
 	children?: NavItem["title"][];
 };
 const NavList: NavItem[] = [
-	{ title: "First" },
-	{ title: "Second", children: ["firstchild", "secondChild", "thirdChild"] },
-	{ title: "Third" },
-	{ title: "Fourth" },
-	{ title: "Fifth", children: ["firstchild", "secondChild", "thirdChild"] },
-	{ title: "Sixth" },
-	{ title: "Seventh" },
+	{ title: "First", url: "/first" },
+	{
+		title: "Second",
+		children: ["firstchild", "secondChild", "thirdChild"],
+		url: "/second",
+	},
+	{ title: "Third", url: "/third" },
+	{ title: "Fourth", url: "/fourth" },
+	{
+		title: "Fifth",
+		url: "/fifth",
+		children: ["firstchild", "secondChild", "thirdChild"],
+	},
+	{ title: "Sixth", url: "/sixth" },
+	{ title: "Seventh", url: "/seventh" },
 ];
 
 const Header = ({ children }: { children: ReactNode }) => {
@@ -47,7 +55,7 @@ const Header = ({ children }: { children: ReactNode }) => {
 		<header
 			className={`${
 				scrolled ? "md:h-16" : "md:h-24"
-			} h-[55px] flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)] border-b md:fixed md:top-0 w-full bg-white md:z-10 transition-[height] duration-300 ease-in`}
+			} h-[55px] flex items-center px-[max(10px,2.5vw)] lg:px-[max(20px,5vw)] border-b md:z-20 md:fixed md:top-0 w-full bg-white  transition-[height] duration-300 ease-in`}
 		>
 			{children}
 		</header>
@@ -69,7 +77,7 @@ const HamBurgarMenuButton = ({ toggleMenu }: { toggleMenu: () => void }) => {
 
 const MobileMenu = ({ closeMenu }: { closeMenu: () => void }) => {
 	return (
-		<div className='grid grid-cols-[1fr,2fr] fixed top-0 inset-0'>
+		<div className='grid grid-cols-[1fr,2fr] fixed top-0 inset-0 z-30'>
 			<div className='bg-white'>
 				<ul className='flex flex-col text-center gap-2 p-3 h-full'>
 					<li>Lorem.</li>
@@ -92,9 +100,9 @@ const MobileMenu = ({ closeMenu }: { closeMenu: () => void }) => {
 };
 
 const Logo = () => (
-	<div>
+	<Link href={"/"}>
 		<span className='font-extrabold text-3xl'>Logo</span>
-	</div>
+	</Link>
 );
 const NavMenu = () => {
 	return (
@@ -151,11 +159,14 @@ const DropDownMenu = ({ child }: { child: string[] }) => {
 };
 const NavItem = ({ icon, item }: { icon?: ReactNode; item: NavItem }) => {
 	return (
-		<li className='flex items-center  gap-0.5 group relative'>
+		<Link
+			className='flex items-center  gap-0.5 group relative'
+			href={item.url ?? "#"}
+		>
 			<span className='leading-none cursor-pointer'>{item.title}</span>
 			{icon || <CustomIcon />}
 			{item.children && <DropDownMenu child={item.children} />}
-		</li>
+		</Link>
 	);
 };
 const Footer = () => {

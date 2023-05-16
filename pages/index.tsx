@@ -1,13 +1,16 @@
 import Gallery from "@components/Gallery";
 import Accordian from "@components/Accordian";
-import { useSearch } from "@components/Search";
-import { ContentLoader } from "@UI/Loaders";
 
+import { ContentLoader } from "@UI/Loaders";
+import Hero, { MainSearch } from "@components/Hero";
+import { useSearch } from "@utils/useSearch";
 let render = 0;
+
 const Home = () => {
 	console.log(render++, "rendercount");
 	return (
 		<>
+			<Hero children={() => <MainSearch />} />
 			<Accordian></Accordian>
 			<Gallery />
 			<GenerateAndDisplayData />
@@ -29,7 +32,7 @@ const GenerateAndDisplayData = () => {
 			{data && (
 				<pre className='bg-[#333] text-white p-4 overflow-auto '>
 					<code className='w-full block'>
-						{JSON.stringify(data.data, null, 2)}
+						{JSON.stringify(data, null, 2)}
 					</code>
 				</pre>
 			)}

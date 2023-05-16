@@ -8,12 +8,11 @@ import {
 	useState,
 } from "react";
 import { BiSearch } from "react-icons/bi";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import useIsMobile from "@utils/useIsMobile";
 
 import { CSSTransition } from "react-transition-group";
+import { Response, useSearch } from "@utils/useSearch";
 
 export const Search = () => {
 	const [show, setShow] = useState(false);
@@ -54,11 +53,11 @@ export const Search = () => {
 						ref={(input) => input && input.focus()}
 					/>
 					{searchString && (
-						<div className='absolute z-10 top-full right-full w-[700px] border border-t-0 group bg-white p-1'>
+						<div className='absolute top-full right-full w-[700px] border border-t-0 group bg-white p-1'>
 							{loading ? (
 								<Skeleton count={10} height={40} />
 							) : (
-								<DisplayResult list={data?.data} />
+								<DisplayResult list={data} />
 							)}
 						</div>
 					)}
@@ -79,17 +78,18 @@ const SearchIcon = ({ cb }: { cb: () => void }) => {
 	);
 };
 
-const DisplayResult = ({ list }: { list: Response[] }) => {
+export const DisplayResult = ({ list }: { list: Response[] | undefined }) => {
 	return (
 		<ul>
-			{list.map((item, index) => (
-				<li
-					key={index.toString()}
-					className='p-2 border-b last:border-b-0'
-				>
-					{item.value}
-				</li>
-			))}
+			{list &&
+				list.map((item, index) => (
+					<li
+						key={index.toString()}
+						className='p-2 border-b last:border-b-0'
+					>
+						{item.value}
+					</li>
+				))}
 		</ul>
 	);
 };
@@ -148,26 +148,3 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
 		);
 	}
 );
-
-type Response = {
-	value: string;
-	label: string;
-	typeval: string;
-	labelfor: string;
-};
-
-const fetchResponse = async (input: string) => {
-	return await axios.get(
-		`http://localhost:80/collegebatch-next/api/searchSuggestion?term=${input}`,
-		{
-			withCredentials: true,
-		}
-	);
-};
-
-export const useSearch = (input: string) => {
-	return useQuery(["search", input], () => fetchResponse(input), {
-		enabled: !!input,
-		keepPreviousData: false,
-	});
-};

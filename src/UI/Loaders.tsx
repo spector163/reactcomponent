@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { ClassAttributes } from "react";
 
 type Props = {
 	count?: number;

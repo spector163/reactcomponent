@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import { useState } from "react";
 
 const Genratelist = () => {
