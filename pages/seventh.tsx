@@ -9,11 +9,12 @@ import {
 } from "react";
 
 const Yash = () => {
-	const { Provider } = fastTodoContext([]);
+	const { Provider, useStore } = fastTodoContext([]);
 	return (
 		<Provider>
 			<div className='grid min-h-screen place-items-center'>
 				<TodoForm />
+				<TodoListComponent />
 			</div>
 		</Provider>
 	);
@@ -22,7 +23,7 @@ const Yash = () => {
 export default Yash;
 
 const TodoForm = () => {
-	const { useStore } = fastTodoContext([]);
+	const { useStore } = fastTodoContext<{ remarks: string }>([]);
 	const [_, set] = useStore();
 	const [item, setItem] = useState("");
 	const [remark, setRemark] = useState("");
@@ -31,6 +32,7 @@ const TodoForm = () => {
 			className='bg-white mt-10 border p-2 gap-3 flex flex-col rounded-sm w-[min(92%,500px)]'
 			onSubmit={(e) => {
 				e.preventDefault();
+				set({ title: item, data: { remarks: remark } });
 			}}
 		>
 			<div className='flex gap-2'>
@@ -60,9 +62,18 @@ const TodoForm = () => {
 };
 
 const TodoListComponent = () => {
-	const { useStore } = fastTodoContext([]);
+	const { useStore } = fastTodoContext<{ remarks: string }>([]);
 	const [list, _] = useStore();
-	return <>{list.map}</>;
+	return (
+		<>
+			{list.map((item, index) => (
+				<div key={index.toString()}>
+					{item.getData()?.remarks}/{item.getTitle()}/
+					{item.isCompleted() ? "completed" : "Remaining"}
+				</div>
+			))}
+		</>
+	);
 };
 // make a todo store and subscribe to it using the useExternalstore hook
 
@@ -181,7 +192,9 @@ function fastTodoContext<T>(initialState: Todo<T>[]) {
 		};
 	}
 	type UseStoreDataReturnType = ReturnType<typeof useStoreTodo>;
+
 	const StoreContext = createContext<UseStoreDataReturnType | null>(null);
+
 	function Provider({ children }: { children: ReactNode }) {
 		return (
 			<StoreContext.Provider value={useStoreTodo()}>
@@ -189,7 +202,7 @@ function fastTodoContext<T>(initialState: Todo<T>[]) {
 			</StoreContext.Provider>
 		);
 	}
-	function useStore(): [Todo<T>, (data: TodoItem<T>) => void] {
+	function useStore(): [Todo<T>[], (data: TodoItem<T>) => void] {
 		const store = useContext(StoreContext);
 		if (!store) {
 			throw new Error("Store not found");
