@@ -7,6 +7,7 @@ import {
 	useState,
 	useSyncExternalStore,
 } from "react";
+
 const { useStore, Provider } = fastTodoContext<{ remarks: string }>([]);
 const Yash = () => {
 	return (
@@ -30,8 +31,8 @@ const TodoForm = () => {
 			className='bg-white mt-10 border p-2 gap-3 flex flex-col rounded-sm w-[min(92%,500px)]'
 			onSubmit={(e) => {
 				e.preventDefault();
+
 				set({ title: item, data: { remarks: remark } });
-			}}
 		>
 			<div className='flex gap-2'>
 				<label htmlFor='task'>Task</label>
@@ -193,6 +194,7 @@ function fastTodoContext<T>(initialState: Todo<T>[]) {
 
 	const StoreContext = createContext<UseStoreDataReturnType | null>(null);
 
+
 	function Provider({ children }: { children: ReactNode }) {
 		return (
 			<StoreContext.Provider value={useStoreTodo()}>
@@ -200,6 +202,7 @@ function fastTodoContext<T>(initialState: Todo<T>[]) {
 			</StoreContext.Provider>
 		);
 	}
+
 	function useStore(): [Todo<T>[], (data: TodoItem<T>) => void] {
 		const store = useContext(StoreContext);
 		if (!store) {
