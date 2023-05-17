@@ -1,11 +1,14 @@
 import { Search } from "@components/Search";
 import useScroll from "@utils/useScroll";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { ReactNode, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
 const Layout = ({ children }: { children: ReactNode }) => {
 	const [show, setShow] = useState(false);
+	const router = useRouter();
 
 	return (
 		<>
@@ -16,6 +19,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
 				<Logo />
 				<NavMenu />
 				{show && <MobileMenu closeMenu={() => setShow(false)} />}
+				<AuthMenu
+					dropdown={(show) => (show ? <DropDownMenuauth /> : null)}
+				/>
 				<Search />
 			</Header>
 			<main className='gap-2 '>{children}</main>
@@ -25,6 +31,30 @@ const Layout = ({ children }: { children: ReactNode }) => {
 };
 
 export default Layout;
+const AuthMenu = ({ dropdown }: { dropdown: (show: boolean) => ReactNode }) => {
+	const [show, setShow] = useState(false);
+	return (
+		<button className='relative' onClick={() => setShow(!show)}>
+			<Image
+				src='/vite.svg'
+				alt='profile Pic'
+				width={20}
+				height={20}
+				className='rounded-full bg-red-600'
+			/>
+			{dropdown(show)}
+		</button>
+	);
+};
+
+const DropDownMenuauth = () => {
+	return (
+		<div className='absolute   !top-full -left-1/2  border flex flex-col gap-3 justify-center bg-white w-max '>
+			<span className='p-2 border-b'>profile</span>
+			<span className='p-2 border-b'>logout</span>
+		</div>
+	);
+};
 
 type NavItem = {
 	title: string;
