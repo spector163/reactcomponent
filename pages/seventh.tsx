@@ -13,7 +13,7 @@ const Yash = () => {
 	return (
 		<Provider>
 			<div className='grid min-h-screen place-items-center'>
-				<TodoForm />
+				{/* <TodoForm /> */}
 				<TodoListComponent />
 			</div>
 		</Provider>
@@ -22,43 +22,45 @@ const Yash = () => {
 
 export default Yash;
 
-const TodoForm = () => {
-	const [_, set] = useStore();
-	const [item, setItem] = useState("");
-	const [remark, setRemark] = useState("");
-	return (
-		<form
-			className='bg-white mt-10 border p-2 gap-3 flex flex-col rounded-sm w-[min(92%,500px)]'
-			onSubmit={(e) => {
-				e.preventDefault();
+// const TodoForm = () => {
+// 	const [_, set] = useStore();
+// 	const [item, setItem] = useState("");
+// 	const [remark, setRemark] = useState("");
+// 	return (
+// 		<form
+// 			className='bg-white mt-10 border p-2 gap-3 flex flex-col rounded-sm w-[min(92%,500px)]'
+// 			onSubmit={(e) => {
+// 				e.preventDefault();
 
-				set({ title: item, data: { remarks: remark } });
-		>
-			<div className='flex gap-2'>
-				<label htmlFor='task'>Task</label>
-				<input
-					name='task'
-					value={item}
-					className='w-full focus-visible:outline-[#33deed] focus:outline-[#33deed]'
-					onChange={(e) => setItem(e.target.value)}
-				/>
-			</div>
-			<div className='flex gap-2'>
-				<label htmlFor='REMARK'>Remark</label>
-				<textarea
-					name='remark'
-					rows={2}
-					value={remark}
-					onChange={(e) => setRemark(e.target.value)}
-					className='w-full focus-visible:outline-[#33deed] focus:outline-[#33deed]'
-				/>
-			</div>
-			<button className='bg-[#ff6500] p-2 rounded grayscale hover:grayscale-0 transition-all duration-300 ease-in text-white self-center'>
-				submit
-			</button>
-		</form>
-	);
-};
+// 				set({ title: item, data: { remarks: remark } });
+// 		>
+// 			<div className='flex gap-2'>
+// 				<label htmlFor='task'>Task</label>
+// 				<input
+// 					name='task'
+// 					value={item}
+// 					className='w-full focus-visible:outline-[#33deed] focus:outline-[#33deed]'
+// 					onChange={(e) => setItem(e.target.value)}
+// 				/>
+// 			</div>
+// 			<div className='flex gap-2'>
+// 				<label htmlFor='REMARK'>Remark</label>
+// 				<textarea
+// 					name='remark'
+// 					rows={2}
+// 					value={remark}
+// 					onChange={(e) => setRemark(e.target.value)}
+// 					className='w-full focus-visible:outline-[#33deed] focus:outline-[#33deed]'
+// 				/>
+// 			</div>
+// 			<button className='bg-[#ff6500] p-2 rounded grayscale hover:grayscale-0 transition-all duration-300 ease-in text-white self-center'>
+// 				submit
+// 			</button>
+// 		</form>
+// 	);
+// };
+
+
 
 const TodoListComponent = () => {
 	const [list, _] = useStore();

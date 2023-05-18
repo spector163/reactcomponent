@@ -33,10 +33,15 @@ export default Hero;
 
 export const MainSearch = () => {
 	const [searchString, setSearchString] = useState("");
-	const { data, isLoading: loading } = useSearch(searchString);
+	const {
+		data,
+		isLoading: loading,
+		isError: error,
+	} = useSearch(searchString);
 	return (
 		<form
 			className={`bg-white w-[min(90%,700px)] z-10 absolute inset-0 m-auto h-max transition-all duration-300 ease-in-out outline outline-[10px] md:outline-[50px] outline-[#333]/50 md:translate-y-[50px]`}
+			onSubmit={(e) => e.preventDefault()}
 		>
 			<label
 				htmlFor='search'
@@ -47,6 +52,14 @@ export const MainSearch = () => {
 					className='flex-1 focus-visible:outline-none indent-2 uppercase text-xl font-medium text-[#333]/80'
 					autoComplete='off'
 					value={searchString}
+					onKeyDown={(e) =>
+						(e.key == "ArrowUp" || e.key == "ArrowDown") &&
+						e.preventDefault()
+					}
+					onKeyUp={(e) =>
+						(e.key == "ArrowUp" || e.key == "ArrowDown") &&
+						e.preventDefault()
+					}
 					onChange={(e) => setSearchString(e.currentTarget.value)}
 				/>
 				<span className='self-center p-3 pl-3.5 group-focus-within:bg-[#006599] bg-[#ff6500] hover:bg-[#ff6500]/80 transition-all duration-300 cursor-pointer ease-out'>
@@ -56,6 +69,8 @@ export const MainSearch = () => {
 					<div className='absolute  top-full inset-0 bottom-auto border border-t-0 group bg-white p-1'>
 						{loading ? (
 							<Skeleton count={10} height={40} />
+						) : error ? (
+							<div>error on you way hold on</div>
 						) : (
 							<DisplayResult list={data} />
 						)}

@@ -21,6 +21,6 @@ const fetchResponse = async (input: string) => {
 export const useSearch = (input: string) => {
 	return useQuery(["search", input], () => fetchResponse(input), {
 		enabled: !!input,
-		keepPreviousData: false,
+		keepPreviousData: !!input,
 	});
 };
