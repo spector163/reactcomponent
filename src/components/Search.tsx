@@ -4,6 +4,7 @@ import {
 	SyntheticEvent,
 	forwardRef,
 	useCallback,
+	useEffect,
 	useRef,
 	useState,
 } from "react";
@@ -13,13 +14,18 @@ import useIsMobile from "@utils/useIsMobile";
 
 import { CSSTransition } from "react-transition-group";
 import { Response, useSearch } from "@utils/useSearch";
+import { useCursorPostion, useKeyHandle } from "../../pages/fourth";
 
 export const Search = () => {
 	const [show, setShow] = useState(false);
 
 	const [isMobile] = useIsMobile(true);
 	const [searchString, setSearchString] = useState("");
-	const { data, isLoading: loading } = useSearch(searchString);
+	const {
+		data,
+		isLoading: loading,
+		isError: error,
+	} = useSearch(searchString);
 
 	const handleShow = useCallback(() => {
 		setShow((v) => !v);
@@ -56,6 +62,8 @@ export const Search = () => {
 						<div className='absolute top-full right-full w-[700px] border border-t-0 group bg-white p-1'>
 							{loading ? (
 								<Skeleton count={10} height={40} />
+							) : error ? (
+								<div>error on you way hold on</div>
 							) : (
 								<DisplayResult list={data} />
 							)}
@@ -78,18 +86,34 @@ const SearchIcon = ({ cb }: { cb: () => void }) => {
 	);
 };
 
-export const DisplayResult = ({ list }: { list: Response[] | undefined }) => {
+export const DisplayResult = ({ list }: { list: Response[] }) => {
+	const pos = useCursorPostion(list.length);
+	const Enter = useKeyHandle("Enter");
+	useEffect(() => {
+		Enter &&
+			console.log(
+				"Enter key was pressed it seems changed it status",
+				list[pos]
+			);
+	}, [Enter]);
 	return (
 		<ul>
-			{list &&
+			{list.length > 0 ? (
 				list.map((item, index) => (
 					<li
 						key={index.toString()}
-						className='p-2 border-b last:border-b-0'
+						className={`p-2 border-b text-white bg-[#ff6500] last:border-b-0 transition-all duration-300 ease-in-out ${
+							pos == index
+								? "grayscale-0 "
+								: "grayscale  bg-[#222]"
+						}`}
 					>
 						{item.value}
 					</li>
-				))}
+				))
+			) : (
+				<div>you search reveled no result</div>
+			)}
 		</ul>
 	);
 };
@@ -133,6 +157,14 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
 						autoComplete='off'
 						ref={ref}
 						value={value}
+						onKeyDown={(e) =>
+							(e.key == "ArrowUp" || e.key == "ArrowDown") &&
+							e.preventDefault()
+						}
+						onKeyUp={(e) =>
+							(e.key == "ArrowUp" || e.key == "ArrowDown") &&
+							e.preventDefault()
+						}
 						{...rest}
 					/>
 					{value && (
