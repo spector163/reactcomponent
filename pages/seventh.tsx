@@ -60,6 +60,8 @@ export default Yash;
 // 	);
 // };
 
+
+
 const TodoListComponent = () => {
 	const [list, _] = useStore();
 	console.log(list);
@@ -193,6 +195,7 @@ function fastTodoContext<T>(initialState: Todo<T>[]) {
 	type UseStoreDataReturnType = ReturnType<typeof useStoreTodo>;
 
 	const StoreContext = createContext<UseStoreDataReturnType | null>(null);
+
 
 	function Provider({ children }: { children: ReactNode }) {
 		return (
